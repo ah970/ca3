@@ -27,6 +27,9 @@ def text_to_speech(text):
 def announcement(date_time):
     alarm = get_alarm(date_time)
 
+    label = alarm["content"]
+    text_to_speech("Alarm " + label + " has gone off")
+
     if alarm["news"]:
         news = get_news()
         articles = news["raw_articles"]
@@ -64,20 +67,6 @@ def add_alarm(date_time, label, news, weather):
 
     alarms.append(alarm_dict)
 
-
-def get_item_from_list(title, list_name):
-    for item in list_name:
-        if item["title"] == title:
-            return item
-
-def remove_item_from_list(title, list_name):
-    item = get_item_from_list(title, list_name)
-    list_name.remove(item)
-
-    try:
-        s.cancel(item["alarm"])
-    except ValueError:
-        pass
 
 def get_alarm(date_time):
     for alarm in alarms:
