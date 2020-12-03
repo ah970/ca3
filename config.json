@@ -1,7 +1,19 @@
 {
-	"keys":
+	"apis":
 	{
-		"owmapi": "f14b98a68602d1ab1a353cd67e3ad713",
-		"newsapi": "8a3e6cb8699c473bacd623fd5e1162ce"
-	}
+		"weather":
+		{
+			"url": "https://api.openweathermap.org/data/2.5/weather?q={city}&appid={key}&units={units}",
+			"key": "f14b98a68602d1ab1a353cd67e3ad713"
+		},
+		"news":
+		{
+			"url": "https://newsapi.org/v2/top-headlines?country=",
+			"key": ""
+		}
+
+	},
+	"country": "gb",
+	"city": "Exeter",
+	"units": "metric"
 }
