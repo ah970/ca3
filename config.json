@@ -3,17 +3,24 @@
 	{
 		"weather":
 		{
-			"url": "https://api.openweathermap.org/data/2.5/weather?q={city}&appid={key}&units={units}",
+			"url": "https://api.openweathermap.org/data/2.5/weather?q={city}&units={units}&appid={key}",
 			"key": "f14b98a68602d1ab1a353cd67e3ad713"
 		},
 		"news":
 		{
-			"url": "https://newsapi.org/v2/top-headlines?country={country}",
-			"key": ""
+			"url": "https://newsapi.org/v2/top-headlines?country={country_code}&pageSize={number_of_articles}&apiKey={key}",
+			"key": "8a3e6cb8699c473bacd623fd5e1162ce"
 		}
 
 	},
-	"country": "gb",
+	"country_code": "gb",
+	"country": "England",
 	"city": "Exeter",
-	"units": "metric"
+	"units": 
+	{
+		"standard": "metric",
+		"string": "℃ "
+	},
+	"notification_update": 15,
+	"number_of_articles": 10
 }
