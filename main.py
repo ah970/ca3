@@ -3,6 +3,7 @@ import sched
 import pyttsx3
 import json
 import requests
+from uk_covid19 import Cov19API
 from flask import Flask, Markup, redirect, request, render_template
 
 
@@ -29,6 +30,10 @@ def announcement(date_time):
 
     label = alarm["content"]
     text_to_speech("Alarm " + label + " has gone off")
+
+    covid_data = get_covid_data()
+    data = covid_data["content"]
+    text_to_speech(data)
 
     if alarm["news"]:
         news = get_news()
@@ -146,6 +151,47 @@ def get_news():
     return news_dict
 
 
+def get_covid_data():
+    yesterdays_date = time.strftime("%Y-%m-%d", time.gmtime(time.time() - (60 * 60 * 24)))
+    country = settings["country"]
+
+    filters = [
+            "areaType=nation",
+            "areaName={}".format(country),
+            "date={}".format(yesterdays_date)
+            ]
+
+    structure = {
+            "newCasesByPublishDate": "newCasesByPublishDate",
+            "cumCasesByPublishDate": "cumCasesByPublishDate",
+            "newDeathsByDeathDate": "newDeathsByDeathDate",
+            "cumDeathsByDeathDate": "cumDeathsByDeathDate"
+            }
+
+    api = Cov19API(filters=filters, structure=structure)
+    data = api.get_json()["data"].pop()
+
+    new_cases = data["newCasesByPublishDate"]
+    total_cases = data["cumCasesByPublishDate"]
+    new_deaths = data["newDeathsByDeathDate"]
+    total_deaths = data["cumDeathsByDeathDate"]
+
+    content = "COVID data as of {}:<br><br>".format(yesterdays_date)
+    content += "New cases: {}<br>".format(new_cases)
+    content += "Total cases: {}<br>".format(total_cases)
+    content += "New deaths: {}<br>".format(new_deaths)
+    content += "Total deaths: {}<br>".format(total_deaths)
+    content = Markup(content)
+
+    covid_data_dict = {
+            "title": "COVID",
+            "content": content,
+            "data": data
+            }
+    
+    return covid_data_dict
+
+
 def get_notification(title):
     for notification in notifications:
         if notification["title"] == title:
@@ -160,6 +206,18 @@ def remove_notification(title):
 
 def update_notifications():
     print("Updating notificaitons")
+    old_covid_data = get_notification("COVID")
+
+    if old_covid_data:
+        current_covid_data = get_covid_data()
+        if old_covid_data["data"] != current_covid_data["data"]:
+            remove_notification("COVID")
+            notifications.append(current_covid_data)
+    else:
+        covid_data = get_covid_data()
+        notifications.append(covid_data)
+
+
     old_weather = get_notification("Weather")
 
     if old_weather:
@@ -179,7 +237,7 @@ def update_notifications():
     if old_news:
         current_news = get_news()
         print("Comparing old and new news data")
-        if old_news["content"] == current_news["content"]:
+        if old_news["content"] != current_news["content"]:
             print("old news outdatted, remoin repla")
             remove_notification("News")
             notifications.append(current_news)
