@@ -1,15 +1,26 @@
 import time
 import sched
+import pyttsx3
 from flask import Flask, redirect, request, render_template
 
 
 alarms = []
+notifications = []
+
+s = sched.scheduler(time.time, time.sleep)
+
+app = Flask(__name__)
+
+
+def text_to_speech(text):
+    engine = pyttsx3.init()
+    engine.say(test)
+    engine.runAndWait()
+    engine.stop()
 
 
 def announcement(date_time):
     alarm = get_alarm(date_time)
-
-    print("Alarm", alarm["content"], "went off at", alarm["title"])
 
     remove_alarm(date_time)
 
@@ -55,10 +66,6 @@ def remove_alarm(date_time):
     except ValueError:
         pass
 
-
-s = sched.scheduler(time.time, time.sleep)
-
-app = Flask(__name__)
 
 @app.route("/")
 @app.route("/index")

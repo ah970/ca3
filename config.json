@@ -8,7 +8,7 @@
 		},
 		"news":
 		{
-			"url": "https://newsapi.org/v2/top-headlines?country=",
+			"url": "https://newsapi.org/v2/top-headlines?country={country}",
 			"key": ""
 		}
 
