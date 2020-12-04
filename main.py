@@ -36,7 +36,8 @@ def text_to_speech(text: str):
     Returns:
     None
     """
-    logging.info("Running text-to-speech function with text: {}".format(text))
+    logging.info("Running text-to-speech function with \
+            text: {}".format(text))
     engine = pyttsx3.init()
     engine.say(text)
     engine.runAndWait()
@@ -52,7 +53,8 @@ def announcement(date_time: str):
     Returns:
     None
     """
-    logging.info("Performing announcement for alarm with datetime: {}".format(date_time))
+    logging.info("Performing announcement for alarm with \
+            datetime: {}".format(date_time))
     alarm = get_alarm(date_time)
 
     label = alarm["content"]
@@ -115,7 +117,8 @@ def add_alarm(date_time: str, label: str, news: str, weather: str):
         logging.error("Alarm is set in the past, not adding alarm.")
         return
 
-    logging.info("Adding alarm to scheduler with datetime: {}".format(date_time))
+    logging.info("Adding alarm to scheduler with \
+            datetime: {}".format(date_time))
     event = s.enterabs(epoch, 1, announcement, argument=(date_time,))
 
     alarm_dict = {
@@ -126,7 +129,8 @@ def add_alarm(date_time: str, label: str, news: str, weather: str):
             "weather": weather
             }
 
-    logging.info("Adding alarm with datetime {}, label {}, news {}, weather {} to list of alarms".format(date_time, label, weather, news))
+    logging.info("Adding alarm with datetime {}, label {}, news {}, weather \
+            {} to list of alarms".format(date_time, label, weather, news))
 
     alarms.append(alarm_dict)
 
@@ -144,7 +148,8 @@ def get_alarm(date_time: str) -> dict:
     for alarm in alarms:
         if alarm["title"] == date_time:
             return alarm
-    logging.error("Alarm with datetime {} could not be found".format(date_time))
+    logging.error("Alarm with datetime {} could not be \
+            found".format(date_time))
     return None
 
 
@@ -159,13 +164,15 @@ def remove_alarm(date_time: str):
     """
     alarm = get_alarm(date_time)
 
-    logging.info("Removing alarm wtih datetime {} from list of alarms".format(date_time))
+    logging.info("Removing alarm wtih datetime {} from list of \
+            alarms".format(date_time))
     alarms.remove(alarm)
     try:
         logging.info("Cancelling alarm in scheduler")
         s.cancel(alarm["event"])
     except ValueError:
-        logging.warning("Alarm could not be cancelled, perhaps it already went off?")
+        logging.warning("Alarm could not be cancelled, perhaps it \
+                already went off?")
         pass
 
 
@@ -350,7 +357,8 @@ def remove_notification(title: str):
     """
     notification = get_notification(title)
 
-    logging.info("Removing notification with title {} from list of notifications".format(title))
+    logging.info("Removing notification with title {} from list of \
+            notifications".format(title))
     notifications.remove(notification)
 
 
@@ -375,7 +383,8 @@ def update_notifications():
             remove_notification("COVID")
             notifications.append(current_covid_data)
     else:
-        logging.warning("COVID data nonexistent, getting new COVID data (first time run?)")
+        logging.warning("COVID data nonexistent, getting new COVID data \
+                (first time run?)")
         covid_data = get_covid_data()
         notifications.append(covid_data)
 
@@ -390,7 +399,8 @@ def update_notifications():
             remove_notification("Weather")
             notifications.append(current_weather)
     else:
-        logging.warning("Weather data nonexistent, getting new weather data (first time run?)")
+        logging.warning("Weather data nonexistent, getting new weather data \
+                (first time run?)")
         weather = get_weather()
         notifications.append(weather)
 
@@ -404,11 +414,13 @@ def update_notifications():
             remove_notification("News")
             notifications.append(current_news)
     else:
-        logging.warning("News data nonexistent, getting new news data (first time run?)")
+        logging.warning("News data nonexistent, getting new news data \
+                (first time run?)")
         news = get_news()
         notifications.append(news)
 
-    logging.info("Adding event to scheduler to update notifications in {} minutes".format(settings["notification_update"]))
+    logging.info("Adding event to scheduler to update notifications in {} \
+            minutes".format(settings["notification_update"]))
     s.enter(settings["notification_update"] * 60, 2, update_notifications)
 
 
@@ -441,7 +453,8 @@ def index():
     notification_to_remove = request.args.get("notif")
 
     if date_time and label:
-        logging.info("User supplied datetime {} and label {}, going to make alarm".format(date_time, label))
+        logging.info("User supplied datetime {} and label {}, going to \
+                make alarm".format(date_time, label))
         date_time = fix_date_time(date_time)
         add_alarm(date_time, label, news, weather)
 
@@ -449,7 +462,8 @@ def index():
         return redirect("/index")
 
     if date_time_to_remove:
-        logging.info("User wants to remove alarm with datetime {}".format(date_time_to_remove))
+        logging.info("User wants to remove alarm with \
+                datetime {}".format(date_time_to_remove))
         date_time_to_remove = fix_date_time(date_time_to_remove)
         remove_alarm(date_time_to_remove)
 
@@ -457,7 +471,8 @@ def index():
         return redirect("/index")
 
     if notification_to_remove:
-        logging.info("User wants to remove notification with title {}".format(notification_to_remove))
+        logging.info("User wants to remove notification with \
+                title {}".format(notification_to_remove))
         remove_notification(notification_to_remove)
 
         logging.info("Redirecting user back to /index")
