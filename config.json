@@ -22,5 +22,8 @@
 		"string": "℃ "
 	},
 	"notification_update": 15,
-	"number_of_articles": 10
+	"number_of_articles": 10,
+	"cases_threshold": 100,
+	"deaths_threshold": 50,
+	"log_file": "ca3.log"
 }
