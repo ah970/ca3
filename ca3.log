@@ -1,0 +1,72 @@
+2020-12-04 11:04:12,574 INFO: Setting up scheduler
+2020-12-04 11:04:12,574 INFO: Setting up Flask app
+2020-12-04 11:04:12,576 INFO: Starting main app
+2020-12-04 11:04:12,576 INFO: Updating notifications
+2020-12-04 11:04:12,576 INFO: Getting notification with title: COVID
+2020-12-04 11:04:12,576 ERROR: Notification with title COVID could not be found
+2020-12-04 11:04:12,576 INFO: Checking COVID data
+2020-12-04 11:04:12,576 WARNING: COVID data nonexistent, getting new COVID data                 (first time run?)
+2020-12-04 11:04:12,576 INFO: Getting COVID data for date: 2020-12-03
+2020-12-04 11:04:12,576 INFO: Attempting to get data from COVID API
+2020-12-04 11:04:12,937 INFO: New cases have broken threshold
+2020-12-04 11:04:12,937 INFO: New deaths have not broken threshold
+2020-12-04 11:04:12,937 INFO: Returning latest COVID data
+2020-12-04 11:04:12,937 INFO: Getting notification with title: Weather
+2020-12-04 11:04:12,937 ERROR: Notification with title Weather could not be found
+2020-12-04 11:04:12,937 INFO: Checking weather data
+2020-12-04 11:04:12,937 WARNING: Weather data nonexistent, getting new weather data                 (first time run?)
+2020-12-04 11:04:12,937 INFO: Getting latest weather data
+2020-12-04 11:04:12,938 INFO: Attempting a GET request with URL: https://api.openweathermap.org/data/2.5/weather?q=Exeter&units=metric&appid=f14b98a68602d1ab1a353cd67e3ad713
+2020-12-04 11:04:13,103 INFO: Returning latest weather data
+2020-12-04 11:04:13,103 INFO: Getting notification with title: News
+2020-12-04 11:04:13,103 ERROR: Notification with title News could not be found
+2020-12-04 11:04:13,103 INFO: Checking news data
+2020-12-04 11:04:13,103 WARNING: News data nonexistent, getting new news data                 (first time run?)
+2020-12-04 11:04:13,103 INFO: Getting latest news data
+2020-12-04 11:04:13,103 INFO: Attempting a GET request with URL: https://newsapi.org/v2/top-headlines?country=gb&pageSize=10&apiKey=8a3e6cb8699c473bacd623fd5e1162ce
+2020-12-04 11:04:13,335 INFO: Returning latest news data
+2020-12-04 11:04:13,336 INFO: Adding event to scheduler to update notifications in 15             minutes
+2020-12-04 11:04:13,336 INFO:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2020-12-04 11:04:17,501 INFO: User has navigated to / or /index
+2020-12-04 11:04:17,501 INFO: Running any scheduled events
+2020-12-04 11:04:17,502 INFO: Getting any arguments
+2020-12-04 11:04:17,502 INFO: Rendering template with alarms and notifications
+2020-12-04 11:04:17,510 INFO: 127.0.0.1 - - [04/Dec/2020 11:04:17] "[37mGET / HTTP/1.1[0m" 200 -
+2020-12-04 11:04:17,694 INFO: 127.0.0.1 - - [04/Dec/2020 11:04:17] "[33mGET /static/images/image.png HTTP/1.1[0m" 404 -
+2020-12-04 11:04:18,543 INFO: 127.0.0.1 - - [04/Dec/2020 11:04:18] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2020-12-04 11:05:39,077 INFO: Setting up scheduler
+2020-12-04 11:05:39,077 INFO: Setting up Flask app
+2020-12-04 11:05:39,079 INFO: Starting main app
+2020-12-04 11:05:39,079 INFO: Updating notifications
+2020-12-04 11:05:39,079 INFO: Getting notification with title: COVID
+2020-12-04 11:05:39,079 ERROR: Notification with title COVID could not be found
+2020-12-04 11:05:39,079 INFO: Checking COVID data
+2020-12-04 11:05:39,079 WARNING: COVID data nonexistent, getting new COVID data                 (first time run?)
+2020-12-04 11:05:39,079 INFO: Getting COVID data for date: 2020-12-03
+2020-12-04 11:05:39,079 INFO: Attempting to get data from COVID API
+2020-12-04 11:05:39,369 INFO: New cases have broken threshold
+2020-12-04 11:05:39,369 INFO: New deaths have not broken threshold
+2020-12-04 11:05:39,369 INFO: Returning latest COVID data
+2020-12-04 11:05:39,369 INFO: Getting notification with title: Weather
+2020-12-04 11:05:39,369 ERROR: Notification with title Weather could not be found
+2020-12-04 11:05:39,369 INFO: Checking weather data
+2020-12-04 11:05:39,369 WARNING: Weather data nonexistent, getting new weather data                 (first time run?)
+2020-12-04 11:05:39,369 INFO: Getting latest weather data
+2020-12-04 11:05:39,369 INFO: Attempting a GET request with URL: https://api.openweathermap.org/data/2.5/weather?q=Exeter&units=metric&appid=f14b98a68602d1ab1a353cd67e3ad713
+2020-12-04 11:05:39,549 INFO: Returning latest weather data
+2020-12-04 11:05:39,549 INFO: Getting notification with title: News
+2020-12-04 11:05:39,549 ERROR: Notification with title News could not be found
+2020-12-04 11:05:39,549 INFO: Checking news data
+2020-12-04 11:05:39,549 WARNING: News data nonexistent, getting new news data                 (first time run?)
+2020-12-04 11:05:39,549 INFO: Getting latest news data
+2020-12-04 11:05:39,549 INFO: Attempting a GET request with URL: https://newsapi.org/v2/top-headlines?country=gb&pageSize=10&apiKey=8a3e6cb8699c473bacd623fd5e1162ce
+2020-12-04 11:05:40,081 INFO: Returning latest news data
+2020-12-04 11:05:40,081 INFO: Adding event to scheduler to update notifications in 15             minutes
+2020-12-04 11:05:40,081 INFO:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2020-12-04 11:05:48,081 INFO: User has navigated to / or /index
+2020-12-04 11:05:48,081 INFO: Running any scheduled events
+2020-12-04 11:05:48,081 INFO: Getting any arguments
+2020-12-04 11:05:48,081 INFO: Rendering template with alarms and notifications
+2020-12-04 11:05:48,093 INFO: 127.0.0.1 - - [04/Dec/2020 11:05:48] "[37mGET / HTTP/1.1[0m" 200 -
+2020-12-04 11:05:48,351 INFO: 127.0.0.1 - - [04/Dec/2020 11:05:48] "[37mGET /static/images/image.png HTTP/1.1[0m" 200 -
+2020-12-04 11:05:49,276 INFO: 127.0.0.1 - - [04/Dec/2020 11:05:49] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -

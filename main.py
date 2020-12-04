@@ -480,7 +480,8 @@ def index():
 
     logging.info("Rendering template with alarms and notifications")
     return render_template("index.html", alarms=alarms,
-            notifications=notifications, title=settings["title"])
+            notifications=notifications, title=settings["title"],
+            image="image.png")
 
 
 if __name__ == "__main__":
