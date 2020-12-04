@@ -1,3 +1,6 @@
+"""main - This module provides the main app."""
+
+
 import time
 import sched
 import pyttsx3
@@ -24,7 +27,15 @@ logging.info("Setting up Flask app")
 app = Flask(__name__)
 
 
-def text_to_speech(text):
+def text_to_speech(text: str):
+    """Run a TTS with the given text.
+
+    Arguments:
+    text (str): text to TTS.
+
+    Returns:
+    None
+    """
     logging.info("Running text-to-speech function with text: {}".format(text))
     engine = pyttsx3.init()
     engine.say(text)
@@ -32,7 +43,15 @@ def text_to_speech(text):
     engine.stop()
 
 
-def announcement(date_time):
+def announcement(date_time: str):
+    """Perform an announcement for an alarm.
+
+    Arguments:
+    date_time (str): datetime of the alarm to perform announcement for.
+
+    Returns:
+    None
+    """
     logging.info("Performing announcement for alarm with datetime: {}".format(date_time))
     alarm = get_alarm(date_time)
 
@@ -61,16 +80,40 @@ def announcement(date_time):
     remove_alarm(date_time)
 
 
-def fix_date_time(date_time):
+def fix_date_time(date_time: str) -> str:
+    """Fix a datetime string for consistency.
+
+    Arguments:
+    date_time (str): datetime string to fix.
+
+    Returns:
+    date_time (str): fixed datetime string.
+    """
     logging.info("Fixing datetime string: {}".format(date_time))
     date_time = date_time.replace("T", " ")
     date_time = date_time.replace("+", " ")
+
     return date_time
 
 
-def add_alarm(date_time, label, news, weather):
+def add_alarm(date_time: str, label: str, news: str, weather: str):
+    """Add an alarm to the list of alarms.
+
+    Arguments:
+    date_time (str): datetime when alarm is supposed to go off.
+    label (str): label of alarm.
+    news (str): should the alarm say news?
+    weather (str): should the alarm say weather?
+
+    Returns:
+    None
+    """
     pattern = "%Y-%m-%d %H:%M"
     epoch = time.mktime(time.strptime(date_time, pattern))
+
+    if time.time() > epoch:
+        logging.error("Alarm is set in the past, not adding alarm.")
+        return
 
     logging.info("Adding alarm to scheduler with datetime: {}".format(date_time))
     event = s.enterabs(epoch, 1, announcement, argument=(date_time,))
@@ -88,7 +131,15 @@ def add_alarm(date_time, label, news, weather):
     alarms.append(alarm_dict)
 
 
-def get_alarm(date_time):
+def get_alarm(date_time: str) -> dict:
+    """Get an alarm by it's datetime from the list of alarms.
+
+    Arguments:
+    date_time (str): datetime of alarm to get.
+
+    Returns:
+    alarm (dict): the relevant alarm dictionary.
+    """
     logging.info("Getting alarm with datetime: {}".format(date_time))
     for alarm in alarms:
         if alarm["title"] == date_time:
@@ -97,7 +148,15 @@ def get_alarm(date_time):
     return None
 
 
-def remove_alarm(date_time):
+def remove_alarm(date_time: str):
+    """Remove an alarm from the list of alarms.
+
+    Arguments:
+    date_time (str): datetime of alarm to remove.
+
+    Returns:
+    None
+    """
     alarm = get_alarm(date_time)
 
     logging.info("Removing alarm wtih datetime {} from list of alarms".format(date_time))
@@ -110,7 +169,15 @@ def remove_alarm(date_time):
         pass
 
 
-def get_weather():
+def get_weather() -> dict:
+    """Gets the current weather.
+
+    Arguments:
+    None
+
+    Returns:
+    weather_dict (dict): a dictionary containing current weather data.
+    """
     logging.info("Getting latest weather data")
     url = settings["apis"]["weather"]["url"]
     key = settings["apis"]["weather"]["key"]
@@ -141,7 +208,15 @@ def get_weather():
     return weather_dict
 
 
-def get_news():
+def get_news() -> dict:
+    """Gets the current news.
+
+    Arguments:
+    None
+
+    Returns:
+    news_dict (dict): a dictionary with the current news data.
+    """
     logging.info("Getting latest news data")
     url = settings["apis"]["news"]["url"]
     key = settings["apis"]["news"]["key"]
@@ -178,7 +253,15 @@ def get_news():
     return news_dict
 
 
-def get_covid_data():
+def get_covid_data() -> dict:
+    """Gets the current COVID data.
+
+    Arguments:
+    None
+
+    Returns:
+    covid_data_dict (dict): a dictionary containing current COVID data.
+    """
     yesterdays_date = time.strftime("%Y-%m-%d",
             time.gmtime(time.time() - (60 * 60 * 24)))
     country = settings["country"]
@@ -239,7 +322,15 @@ def get_covid_data():
     return covid_data_dict
 
 
-def get_notification(title):
+def get_notification(title: str) -> dict:
+    """Get a notification by it's title.
+
+    Arguments:
+    title (str): title of notification to get.
+
+    Returns:
+    notification (dict): relevant notification dictionary.
+    """
     logging.info("Getting notification with title: {}".format(title))
     for notification in notifications:
         if notification["title"] == title:
@@ -248,7 +339,15 @@ def get_notification(title):
     return None
 
 
-def remove_notification(title):
+def remove_notification(title: str):
+    """Remove a notification from the list of notifications.
+
+    Arguments:
+    title (str): title of notification to remove.
+
+    Returns:
+    None
+    """
     notification = get_notification(title)
 
     logging.info("Removing notification with title {} from list of notifications".format(title))
@@ -256,6 +355,14 @@ def remove_notification(title):
 
 
 def update_notifications():
+    """Update all notifications.
+
+    Arguments:
+    None
+
+    Returns:
+    None
+    """
     logging.info("Updating notifications")
 
     old_covid_data = get_notification("COVID")
@@ -308,6 +415,17 @@ def update_notifications():
 @app.route("/")
 @app.route("/index")
 def index():
+    """Serve the user the index page of the site.
+
+    Arguments:
+    None
+
+    Returns:
+    redirect("/index) (redirect): redirect the user back to this page.
+    OR
+    render_template("index.html, alarms=alarms, notifications=notifications)
+    (render_template): render the page with the alarms and notifications.
+    """
     logging.info("User has navigated to / or /index")
 
     logging.info("Running any scheduled events")
