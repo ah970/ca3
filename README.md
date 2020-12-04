@@ -18,6 +18,20 @@ latest COVID-19, weather and news data and will display them in the side bar
 on the right. The user can also remove notifications they no longer need to
 view.
 
+## Usage
+
+To use the CA3 Smart Alarm, run:
+
+```python main.py```
+
+Then, open a browser and navigate to:
+
+```localhost:5000```
+
+Alternatively, navigate to:
+
+```127.0.0.1:5000```
+
 ## Configuration
 
 To (re)configure the CA3 Smart Alarm to your needs, you can edit the 
@@ -28,15 +42,18 @@ the user can change:
 	- News:
 		- URL: the URL to pull data from.
 		- Key: the key to use.
+
 	- Weather:
 		- URL: the URL to pull data from.	
         	- Key: the key to use.
+
 - Country code: the 2 letter ISO-3166-1 code of your country.
 - Country: the name of your country.
 - City: the name of your city.
 - Units:
 	- Standard: the standard of units to use (metric or imperial).
 	- String: temperature string to use.
+
 - Notification update: how of the notifications list should be updated (in
 minutes)
 - Number of articles: the number of articles that the news API should get.
@@ -45,3 +62,8 @@ reported.
 - Deaths threshold: the threshold over which daily and total deaths should be
 reported.
 - Log file: the log file to use.
+
+## Log file
+The log file (by default a file called `ca3.log` in the same directory as
+`main.py` contains a list of events that have happened. This log is relatively
+detailed and is intended as a diagnostic tool in the event of a crash.
